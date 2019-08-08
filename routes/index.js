@@ -8,30 +8,34 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Whol Up Backend' });
 });
 
-// Mise en place de la route GET pour le Sign Infinity.
+// Mise en place de la route GET pour le Sign In.
 router.get('/SignIn', function(req, res, next) {
-
+  
 // Verification de l'Existence d'un User via son email + son password.
+// Création variable isUserExist.
   var isUserExist
-  userModel.findOne( 
-    { email: req.body.email, password: req.body.password} , 
 
+// Requête permettant de vérifier via un email et mot de passe l’existance d’un utilisateur.
+  userModel.findOne( 
+    { email: req.query.email, password: req.query.password} , 
+// Stockage la réponse retournée par la requête dans un argument nommé users.
     function (err, users) {
         console.log("USERS ===>",users);
+// Grâce à users vérification du nombre de users trouvés.
         if(users===null){
           isUserExist=false
         }else{
           isUserExist=true
         }
+// Attention à l'asynchrone pour la reponse JSON.
         res.json({ result:isUserExist, users});
     }
 )
 });
 
-// Mise en place de la route Post pour le Sign PaymentRequestUpdateEvent.
+// Mise en place de la route Post pour le Sign Up.
 router.post('/SignUp', function(req, res, next) {
-
-// Enregistrement d'un User via le SignUp
+// Enregistrement d'un User via le Sign Up en gardant les meme proprietes que dans le schema.
   var newUser = new userModel ({
   first_name: req.body.first_name,
   last_name: req.body.last_name,
@@ -42,7 +46,8 @@ router.post('/SignUp', function(req, res, next) {
 
    newUser.save(
     function (error, user) {
-    res.json({ result:true});
+// Attention à l'asynchrone pour la reponse JSON.
+    res.json({result:true});
     }
 );
 });

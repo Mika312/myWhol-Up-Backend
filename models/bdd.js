@@ -1,3 +1,5 @@
+// Mise en place de mes parametres de connexion à ma base de donnéés.
+
 const mongoose = require('mongoose');
 
 var options = {
