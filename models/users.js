@@ -7,8 +7,8 @@ first_name: String,
 last_name: String,
 email: String,
 password: String,
-// token: String,
-// salt: String,
+token: String,
+salt: String,
 });
 
 // Export du module et des variables.
